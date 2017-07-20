@@ -1,0 +1,17 @@
+{
+  "name": "screens",
+  "version": "1.0.0",
+  "description": "easily upload images from your clipboard",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "unlocomqx",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.6.11"
+  },
+  "dependencies": {
+    "idb-keyval": "^2.3.0"
+  }
+}
