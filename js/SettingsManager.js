@@ -36,6 +36,10 @@ class SettingsManager {
 		this.getElement('upload_auto').checked = !!this.prefs.auto_upload;
 	}
 
+  getUserPref(name) {
+    return this.prefs[ name ];
+  }
+
 	setUserPref(name, value) {
 		settings.set(name, value);
 		this.prefs.name = value;

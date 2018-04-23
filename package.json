@@ -14,6 +14,8 @@
   "dependencies": {
     "electron-clipboard-watcher": "^1.0.1",
     "electron-settings": "^3.1.4",
-    "idb-keyval": "^3.0.3"
+    "form-data": "^2.3.2",
+    "idb-keyval": "^3.0.3",
+    "play-sound": "^1.1.2"
   }
 }
