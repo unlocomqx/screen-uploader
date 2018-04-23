@@ -30,8 +30,10 @@ class SettingsManager {
 	}
 
 	displayUserPrefs() {
-		this.getElement('upload_url').value = this.prefs.upload_url;
-		this.getElement('upload_auto').checked = this.prefs.auto_upload;
+    if (this.prefs.upload_url) {
+      this.getElement('upload_url').value = this.prefs.upload_url;
+    }
+		this.getElement('upload_auto').checked = !!this.prefs.auto_upload;
 	}
 
 	setUserPref(name, value) {
