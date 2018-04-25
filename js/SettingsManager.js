@@ -11,6 +11,7 @@ class SettingsManager {
 	registerEvents() {
 		document.querySelector('#save_button').addEventListener('click', () => this.saveUploadUrl());
 		document.querySelector('#upload_auto').addEventListener('change', () => this.saveUploadAuto());
+		document.querySelector('#copy_auto').addEventListener('change', () => this.saveCopyAuto());
 	}
 
 	saveUploadUrl() {
@@ -22,8 +23,13 @@ class SettingsManager {
 		this.setUserPref('upload_auto', this.getElement('upload_auto').checked);
 	}
 
+	saveCopyAuto() {
+		this.setUserPref('copy_auto', this.getElement('copy_auto').checked);
+	}
+
 	loadUserPrefs() {
 		return {
+			copy_auto: settings.get('copy_auto'),
 			upload_auto: settings.get('upload_auto'),
 			upload_url: settings.get('upload_url')
 		}
@@ -34,6 +40,7 @@ class SettingsManager {
       this.getElement('upload_url').value = this.prefs.upload_url;
     }
 		this.getElement('upload_auto').checked = !!this.prefs.upload_auto;
+		this.getElement('copy_auto').checked = !!this.prefs.copy_auto;
 	}
 
   getUserPref(name) {

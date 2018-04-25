@@ -3,7 +3,7 @@ const idbKeyval = require('idb-keyval');
 const clipboardWatcher = require('electron-clipboard-watcher');
 const electron = require('electron');
 const clipboard = electron.clipboard;
-const player = require('play-sound')(opts = {})
+const player = require('play-sound')(opts = {});
 
 class ScreenUploader {
 
@@ -39,6 +39,8 @@ class ScreenUploader {
     let image = clipboard.readImage();
     if (!image.isEmpty()) {
       this.uploadScreenshot(image);
+    } else {
+      document.querySelector('#screenshot_url').value = 'not a valid image';
     }
   }
 
@@ -55,9 +57,11 @@ class ScreenUploader {
       .then(res => res.text())
       .then((url) => {
         document.querySelector('#screenshot_url').value = url;
-      clipboard.writeText(url);
-      this.playSound();
-    });
+        if (this.settingManager.getUserPref('copy_auto')) {
+          clipboard.writeText(url);
+        }
+        this.playSound();
+      });
   }
 
   playSound() {

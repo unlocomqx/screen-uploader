@@ -2,27 +2,39 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>ScreenUploader</title>
   </head>
   <body>
     <div id="main_container">
-      <div class="form-field">
-        <label><input type="checkbox" id="upload_auto" /> Auto upload images in clipboard</label>
-      </div>
-      <div class="form-field">
+      <fieldset>
+        <div class="form-group">
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="upload_auto" checked="">
+              <label class="custom-control-label" for="upload_auto">Auto upload images in clipboard</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="copy_auto" checked="">
+              <label class="custom-control-label" for="copy_auto">Auto copy url to clipboard</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-group">
         <label>
           Upload address: <br/>
-          <input id="upload_url" value="" />
+          <input id="upload_url" class="form-control" value="" />
         </label>
-        <button id="save_button" >Save</button>
+        <button id="save_button" class="btn btn-primary" style="vertical-align: baseline;" >Save</button>
       </div>
       <div class="form-field">
-        <button id="upload_button" >Upload current image</button>
+        <button id="upload_button" class="btn btn-primary" >Upload current image</button>
       </div>
       <div class="form-field">
         Screenshot url: <br/>
-        <input id="screenshot_url" value="" onclick="this.select()"/>
+        <input id="screenshot_url" class="form-control" value="" onclick="this.select()"/>
       </div>
     </div>
     <script>

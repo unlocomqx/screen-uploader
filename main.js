@@ -8,7 +8,7 @@ const assetsDirectory = path.join(__dirname, 'assets');
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let tray = null;
-let dev_mode = true;
+let dev_mode = false;
 
 function createWindow() {
 
@@ -17,7 +17,7 @@ function createWindow() {
   tray.setToolTip('Screen Uploader');
 
   // Create the browser window.
-  win = new BrowserWindow(dev_mode ? {width: 800, height: 600} : {width: 300, height: 123});
+  win = new BrowserWindow(dev_mode ? {width: 800, height: 600} : {width: 300, height: 290});
   win.setMenu(null);
 
   // and load the index.html of the app.
@@ -42,7 +42,7 @@ function createWindow() {
   win.on('minimize', () => win.hide());
 
   if (!dev_mode) {
-    win.hide();
+    // win.hide();
   }
 }
 
