@@ -9,11 +9,16 @@ class ScreenUploader {
 
   constructor() {
     this.initClipboardWatcher();
+    this.registerEvents();
   }
 
   handleWindowLoad() {
     this.settingManager = new SettingsManager();
     this.settingManager.init();
+  }
+
+  registerEvents() {
+    document.querySelector('#upload_button').addEventListener('click', () => this.uploadClipboardImage());
   }
 
   initClipboardWatcher() {
@@ -30,6 +35,13 @@ class ScreenUploader {
     });
   }
 
+  uploadClipboardImage() {
+    let image = clipboard.readImage();
+    if (!image.isEmpty()) {
+      this.uploadScreenshot(image);
+    }
+  }
+
   uploadScreenshot(image) {
     const form = new FormData();
     form.append('file', image.toDataURL());
@@ -41,8 +53,9 @@ class ScreenUploader {
       }
     )
       .then(res => res.text())
-      .then((text) => {
-      clipboard.writeText(text);
+      .then((url) => {
+        document.querySelector('#screenshot_url').value = url;
+      clipboard.writeText(url);
       this.playSound();
     });
   }
