@@ -23,7 +23,9 @@ class ScreenUploader {
 
       // handler for when image data is copied into the clipboard
       onImageChange: (nativeImage) => {
-        this.uploadScreenshot(nativeImage);
+        if (this.settingManager.getUserPref('upload_auto')) {
+          this.uploadScreenshot(nativeImage);
+        }
       }
     });
   }

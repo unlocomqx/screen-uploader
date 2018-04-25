@@ -2,19 +2,22 @@ const {app, BrowserWindow, Tray} = require('electron');
 const path = require('path');
 const url = require('url');
 
+const assetsDirectory = path.join(__dirname, 'assets');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let tray = null;
+let dev_mode = true;
 
 function createWindow() {
 
-  tray = new Tray('./assets/icons/png/icon-16.png');
+  tray = new Tray(path.join(assetsDirectory, 'icons/png/icon-16.png'));
   tray.on('click', toggleWindow);
   tray.setToolTip('Screen Uploader');
 
   // Create the browser window.
-  win = new BrowserWindow({width: 300, height: 123});
+  win = new BrowserWindow(dev_mode ? {width: 800, height: 600} : {width: 300, height: 123});
   win.setMenu(null);
 
   // and load the index.html of the app.
@@ -24,8 +27,10 @@ function createWindow() {
     slashes: true
   }));
 
-  // Open the DevTools.
-  // win.webContents.openDevTools();
+  if (dev_mode) {
+    // Open the DevTools.
+    win.webContents.openDevTools();
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -34,7 +39,11 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
-  win.hide();
+  win.on('minimize', () => win.hide());
+
+  if (!dev_mode) {
+    win.hide();
+  }
 }
 
 const toggleWindow = () => {

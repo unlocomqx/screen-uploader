@@ -19,12 +19,12 @@ class SettingsManager {
 	}
 
 	saveUploadAuto() {
-		this.setUserPref('auto_upload', this.getElement('upload_auto').checked);
+		this.setUserPref('upload_auto', this.getElement('upload_auto').checked);
 	}
 
 	loadUserPrefs() {
 		return {
-			auto_upload: settings.get('auto_upload'),
+			upload_auto: settings.get('upload_auto'),
 			upload_url: settings.get('upload_url')
 		}
 	}
@@ -33,7 +33,7 @@ class SettingsManager {
     if (this.prefs.upload_url) {
       this.getElement('upload_url').value = this.prefs.upload_url;
     }
-		this.getElement('upload_auto').checked = !!this.prefs.auto_upload;
+		this.getElement('upload_auto').checked = !!this.prefs.upload_auto;
 	}
 
   getUserPref(name) {
@@ -42,7 +42,7 @@ class SettingsManager {
 
 	setUserPref(name, value) {
 		settings.set(name, value);
-		this.prefs.name = value;
+		this.prefs[name] = value;
 	}
 
 	getElement(id) {
