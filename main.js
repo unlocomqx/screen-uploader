@@ -45,7 +45,7 @@ function createWindow() {
   win.on('minimize', () => win.hide());
 
   if (settings.get('start_hidden')) {
-    win.hide();
+    win.minimize();
   }
 }
 
