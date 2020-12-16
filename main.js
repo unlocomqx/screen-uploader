@@ -47,6 +47,7 @@ function createWindow() {
   if (settings.get('start_hidden')) {
     win.minimize();
   }
+  app.dock.hide();
 }
 
 const toggleWindow = () => {
