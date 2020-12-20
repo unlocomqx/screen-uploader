@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfac18b4-8798-45ea-a8e7-a1354c5be9f1" name="Default" comment="Increase window height">
-      <change beforePath="$PROJECT_DIR$/.idea/screens.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/screens.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-    </list>
+    <list default="true" id="cfac18b4-8798-45ea-a8e7-a1354c5be9f1" name="Default" comment="Update idea config" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -480,7 +476,9 @@
     <MESSAGE value="Update package-lock.json" />
     <MESSAGE value="Hide app from dock" />
     <MESSAGE value="Increase window height" />
-    <option name="LAST_COMMIT_MESSAGE" value="Increase window height" />
+    <MESSAGE value="Remove tray icon when app is closed" />
+    <MESSAGE value="Update idea config" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update idea config" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/@types/node/index.d.ts" />
