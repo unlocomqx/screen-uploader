@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Tray} = require('electron');
+const {app, BrowserWindow, Tray, screen} = require('electron');
 const path = require('path');
 const url = require('url');
 const settings = require('electron-settings');
@@ -9,7 +9,7 @@ const assetsDirectory = path.join(__dirname, 'assets');
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let tray = null;
-let dev_mode = false;
+let dev_mode = true;
 
 function createWindow() {
 
@@ -20,6 +20,9 @@ function createWindow() {
   // Create the browser window.
   const options = dev_mode ? {width: 800, height: 600} : {width: 300, height: 330};
   options.resizable = false;
+  options.webPreferences = {
+    nodeIntegration: true
+  }
   win = new BrowserWindow(options);
   win.setMenu(null);
 
@@ -29,6 +32,10 @@ function createWindow() {
     protocol: 'file:',
     slashes: true
   }));
+
+  win.webContents.on('did-finish-load', () => {
+    win.webContents.send('scaleFactor', screen.getPrimaryDisplay().scaleFactor)
+  })
 
   if (dev_mode) {
     // Open the DevTools.

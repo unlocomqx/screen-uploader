@@ -12,6 +12,7 @@ class SettingsManager {
 		document.querySelector('#save_button').addEventListener('click', () => this.saveUploadUrl());
 		document.querySelector('#start_hidden').addEventListener('change', () => this.saveStartHidden());
 		document.querySelector('#upload_auto').addEventListener('change', () => this.saveUploadAuto());
+		document.querySelector('#downscale').addEventListener('change', () => this.saveDownscale());
 		document.querySelector('#copy_auto').addEventListener('change', () => this.saveCopyAuto());
 	}
 
@@ -28,6 +29,10 @@ class SettingsManager {
 		this.setUserPref('upload_auto', this.getElement('upload_auto').checked);
 	}
 
+	saveDownscale() {
+		this.setUserPref('downscale', this.getElement('downscale').checked);
+	}
+
 	saveCopyAuto() {
 		this.setUserPref('copy_auto', this.getElement('copy_auto').checked);
 	}
@@ -37,6 +42,7 @@ class SettingsManager {
 			copy_auto: settings.get('copy_auto'),
 			start_hidden: settings.get('start_hidden'),
 			upload_auto: settings.get('upload_auto'),
+			downscale: settings.get('downscale'),
 			upload_url: settings.get('upload_url')
 		}
 	}
@@ -47,6 +53,7 @@ class SettingsManager {
     }
 		this.getElement('start_hidden').checked = !!this.prefs.start_hidden;
 		this.getElement('upload_auto').checked = !!this.prefs.upload_auto;
+		this.getElement('downscale').checked = !!this.prefs.downscale;
 		this.getElement('copy_auto').checked = !!this.prefs.copy_auto;
 	}
 
