@@ -23,7 +23,6 @@ class ScreenUploader {
 
   setScaleFactor(value) {
     this.scaleFactor = value;
-    console.log(value);
   }
 
   initClipboardWatcher() {
