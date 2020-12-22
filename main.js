@@ -11,7 +11,7 @@ let win;
 let tray = null;
 let dev_mode = false;
 
-function createWindow() {
+async function createWindow() {
 
   tray = new Tray(path.join(assetsDirectory, 'icons/png/icon-16.png'));
   tray.on('click', toggleWindow);
@@ -52,7 +52,7 @@ function createWindow() {
   });
   win.on('minimize', () => win.hide());
 
-  if (settings.get('start_hidden')) {
+  if (await settings.get('start_hidden')) {
     win.minimize();
   }
   app.dock.hide();

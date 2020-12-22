@@ -2,9 +2,9 @@ const settings = require('electron-settings');
 
 class SettingsManager {
 
-	init() {
+	async init() {
 		this.registerEvents();
-		this.prefs = this.loadUserPrefs();
+		this.prefs = await this.loadUserPrefs();
 		this.displayUserPrefs();
 	}
 
@@ -37,13 +37,13 @@ class SettingsManager {
 		this.setUserPref('copy_auto', this.getElement('copy_auto').checked);
 	}
 
-	loadUserPrefs() {
+	async loadUserPrefs() {
 		return {
-			copy_auto: settings.get('copy_auto'),
-			start_hidden: settings.get('start_hidden'),
-			upload_auto: settings.get('upload_auto'),
-			downscale: settings.get('downscale'),
-			upload_url: settings.get('upload_url')
+			copy_auto: await settings.get('copy_auto'),
+			start_hidden: await settings.get('start_hidden'),
+			upload_auto: await settings.get('upload_auto'),
+			downscale: await settings.get('downscale'),
+			upload_url: await settings.get('upload_url')
 		}
 	}
 

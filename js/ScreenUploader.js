@@ -12,9 +12,9 @@ class ScreenUploader {
     this.registerEvents();
   }
 
-  handleWindowLoad() {
+  async handleWindowLoad() {
     this.settingManager = new SettingsManager();
-    this.settingManager.init();
+    await this.settingManager.init();
   }
 
   registerEvents() {
