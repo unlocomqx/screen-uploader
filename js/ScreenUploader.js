@@ -92,6 +92,7 @@ class ScreenUploader {
 
   playSound() {
     const audio = new Audio("assets/ding.mp3");
+    audio.volume = 0.2;
     audio.play();
   }
 }
