@@ -5,3 +5,20 @@ body {
 .form-field {
   margin-bottom: 10px;
 }
+
+#progress {
+  display: none;
+  position: absolute;
+  top: -13px;
+  width: 100%;
+  border: 1px solid #DF691A;
+  height: 10px;
+  margin-bottom: 3px;
+}
+
+#track {
+  transition: width ease-in-out .2s;
+  background-color: #DF691A;
+  height: 100%;
+  width: 50%;
+}

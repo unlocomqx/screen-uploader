@@ -38,7 +38,13 @@
         <button id="save_button" class="btn btn-primary" style="vertical-align: baseline;" >Save</button>
       </div>
       <div class="form-field">
-        <button id="upload_button" class="btn btn-primary" >Upload current image</button>
+        <div style="display: inline-block; position: relative;">
+          <div id="progress">
+            <div id="track"></div>
+          </div>
+          <button id="upload_button" class="btn btn-primary">Upload current image</button>
+        </div>
+        <img id="spinner" style="display: none;" src="assets/spinner.gif" height="36" alt="loading...">
       </div>
       <div class="form-field">
         Screenshot url: <br/>

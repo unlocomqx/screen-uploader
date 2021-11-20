@@ -4,6 +4,7 @@ const clipboardWatcher = require("electron-clipboard-watcher");
 const electron = require("electron");
 const clipboard = electron.clipboard;
 const player = require("play-sound")(opts = {});
+const axios = require("axios");
 
 class ScreenUploader {
 
@@ -61,20 +62,28 @@ class ScreenUploader {
   uploadScreenshot(image) {
     const form = new FormData();
     form.append("file", image.toDataURL());
-    fetch(
-      this.settingManager.getUserPref("upload_url"),
-      {
-        method: "POST",
-        body: form
+    document.querySelector("#spinner").style.display = "inline-block";
+    document.querySelector("#progress").style.display = "block";
+    document.querySelector("#track").style.width = "0%";
+    axios.request({
+      url: this.settingManager.getUserPref("upload_url"),
+      method: "POST",
+      data: form,
+      onUploadProgress: (ev) => {
+        const percent = ev.loaded / ev.total * 100;
+        document.querySelector("#track").style.width = `${percent}%`;
       }
-    )
-    .then(res => res.text())
-    .then((url) => {
+    }).then(res => {
+      document.querySelector("#track").style.width = `100%`;
+      const url = res.data;
       document.querySelector("#screenshot_url").value = url;
       if (this.settingManager.getUserPref("copy_auto")) {
         clipboard.writeText(url);
       }
       this.playSound();
+    }).finally(() => {
+      document.querySelector("#spinner").style.display = "none";
+      document.querySelector("#progress").style.display = "none";
     });
   }
 

@@ -9,7 +9,7 @@ const assetsDirectory = path.join(__dirname, 'assets');
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let tray = null;
-let dev_mode = false;
+let dev_mode = true;
 
 async function createWindow() {
 
