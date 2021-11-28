@@ -9,7 +9,7 @@ const assetsDirectory = path.join(__dirname, 'assets');
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let tray = null;
-let dev_mode = false;
+let dev_mode = true;
 
 async function createWindow() {
 
@@ -26,12 +26,15 @@ async function createWindow() {
   win = new BrowserWindow(options);
   win.setMenu(null);
 
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  if (dev_mode) {
+    win.loadURL("http://localhost:5000/");
+  }else{
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, 'index.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+  }
 
   win.webContents.on('did-finish-load', () => {
     win.webContents.send('scaleFactor', screen.getPrimaryDisplay().scaleFactor)
