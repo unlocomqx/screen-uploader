@@ -8,7 +8,8 @@
     if (!image.isEmpty()) {
       uploadScreenshot(image);
     } else {
-      ui.setKey("screenshot_url", "Not a valid image");
+      ui.setKey("screenshot_url", null);
+      ui.setKey("status", "The clipboard does not contain a valid image");
     }
   }
 

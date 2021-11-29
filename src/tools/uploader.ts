@@ -16,10 +16,15 @@ export function uploadScreenshot (image) {
     }
   }).then(res => {
     progress.set(100);
-    const url = res.data;
-    ui.setKey("screenshot_url", url);
-    if (prefs.getKey("copy_auto") && url.startsWith("https://")) {
-      window.clipboard.writeText(url);
+    const response = res.data;
+    if (response.startsWith("https://")) {
+      ui.setKey("screenshot_url", response);
+      if (prefs.getKey("copy_auto")) {
+        window.clipboard.writeText(response);
+      }
+    } else {
+      ui.setKey("screenshot_url", null);
+      ui.setKey("status", response);
     }
     playSound();
   }).finally(() => {

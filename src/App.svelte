@@ -5,7 +5,7 @@
   import { ui } from "./stores/ui";
   import { initClipboardWatcher } from "./tools/clipboard";
 
-  onMount(initClipboardWatcher)
+  onMount(initClipboardWatcher);
 </script>
 
 <div id="main_container">
@@ -46,6 +46,12 @@
     Screenshot url: <br/>
     <input id="screenshot_url" class="form-control" value="{$ui.screenshot_url}" onclick="this.select()"/>
   </div>
+
+  {#if $ui.status}
+    <div class="alert alert-danger">
+      {$ui.status}
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
