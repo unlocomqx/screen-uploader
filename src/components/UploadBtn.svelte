@@ -9,7 +9,7 @@
       uploadScreenshot(image);
     } else {
       ui.setKey("screenshot_url", null);
-      ui.setKey("status", "The clipboard does not contain a valid image");
+      ui.setKey("status", "Invalid image");
     }
   }
 
