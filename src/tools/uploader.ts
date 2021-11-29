@@ -3,6 +3,9 @@ import { progress } from "../stores/progress";
 import { ui } from "../stores/ui";
 
 export function uploadScreenshot (image) {
+  ui.setKey("status", null);
+  ui.setKey("screenshot_url", null);
+
   const form = new FormData();
   form.append("file", image.toDataURL());
   progress.set(0);
