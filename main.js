@@ -1,9 +1,9 @@
-const {app, BrowserWindow, Tray, screen} = require('electron');
-const path = require('path');
-const url = require('url');
-const settings = require('electron-settings');
+const {app, BrowserWindow, Tray, screen} = require("electron");
+const path = require("path");
+const url = require("url");
+const settings = require("electron-settings");
 
-const assetsDirectory = path.join(__dirname, 'assets');
+const assetsDirectory = path.join(__dirname, "public/assets");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,32 +13,33 @@ let dev_mode = true;
 
 async function createWindow() {
 
-  tray = new Tray(path.join(assetsDirectory, 'icons/png/icon-16.png'));
-  tray.on('click', toggleWindow);
-  tray.setToolTip('Screen Uploader');
+  tray = new Tray(path.join(assetsDirectory, "icons/png/icon-16.png"));
+  tray.on("click", toggleWindow);
+  tray.setToolTip("Screen Uploader");
 
   // Create the browser window.
-  const options = dev_mode ? {width: 800, height: 600} : {width: 300, height: 360};
+  const options = dev_mode ? {width: 850, height: 600} : {width: 300, height: 360};
   options.resizable = false;
   options.webPreferences = {
-    nodeIntegration: true
-  }
+    nodeIntegration: true,
+    preload: __dirname + '/src/preload.js'
+  };
   win = new BrowserWindow(options);
   win.setMenu(null);
 
   if (dev_mode) {
     win.loadURL("http://localhost:5000/");
-  }else{
+  } else {
     win.loadURL(url.format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
+      pathname: path.join(__dirname, "/public/index.html"),
+      protocol: "file:",
       slashes: true
     }));
   }
 
-  win.webContents.on('did-finish-load', () => {
-    win.webContents.send('scaleFactor', screen.getPrimaryDisplay().scaleFactor)
-  })
+  win.webContents.on("did-finish-load", () => {
+    win.webContents.send("scaleFactor", screen.getPrimaryDisplay().scaleFactor);
+  });
 
   if (dev_mode) {
     // Open the DevTools.
@@ -46,19 +47,21 @@ async function createWindow() {
   }
 
   // Emitted when the window is closed.
-  win.on('closed', () => {
+  win.on("closed", () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
     tray.destroy();
   });
-  win.on('minimize', () => win.hide());
+  win.on("minimize", () => win.hide());
 
-  if (await settings.get('start_hidden')) {
+  if (await settings.get("start_hidden")) {
     win.minimize();
   }
-  app.dock.hide();
+  if (!dev_mode) {
+    app.dock.hide();
+  }
 }
 
 const toggleWindow = () => {
@@ -72,18 +75,18 @@ const toggleWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
