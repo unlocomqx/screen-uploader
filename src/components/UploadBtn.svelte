@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { progress } from "../stores/progress";
   import { ui } from "../stores/ui";
   import { uploadScreenshot } from "../tools/uploader";
 
@@ -15,12 +16,16 @@
 
 <div class="form-field">
   <div style="display: inline-block; position: relative;">
-    <div id="progress">
-      <div id="track"></div>
-    </div>
+    {#if $progress}
+      <div id="progress">
+        <div id="track" style="width: {$progress}%"></div>
+      </div>
+    {/if}
     <button on:click={uploadImage} class="btn btn-primary">
       Upload current image
     </button>
   </div>
-  <img id="spinner" style="display: none;" src="assets/spinner.gif" height="36" alt="loading...">
+  {#if $progress}
+    <img id="spinner" src="assets/spinner.gif" height="36" alt="loading...">
+  {/if}
 </div>
