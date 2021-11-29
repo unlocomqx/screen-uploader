@@ -26,12 +26,13 @@
 
     ctx.beginPath();
     ctx.rect(0, height / 2 - bar_height / 2, width, bar_height);
+    ctx.strokeStyle = "#00AAF2";
     ctx.stroke();
     ctx.closePath();
 
     ctx.beginPath();
     ctx.rect(0, height / 2 - bar_height / 2, width * value / 100, bar_height);
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "#00AAF2";
     ctx.fill()
     ctx.closePath();
 
