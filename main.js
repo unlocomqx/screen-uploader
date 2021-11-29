@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Tray, screen} = require("electron");
+const {app, BrowserWindow, Tray, screen, ipcMain, nativeImage} = require("electron");
 const path = require("path");
 const url = require("url");
 const settings = require("electron-settings");
@@ -22,7 +22,7 @@ async function createWindow() {
   options.resizable = false;
   options.webPreferences = {
     nodeIntegration: true,
-    preload: __dirname + '/src/preload.js'
+    preload: __dirname + "/src/preload.js"
   };
   win = new BrowserWindow(options);
   win.setMenu(null);
@@ -71,6 +71,14 @@ const toggleWindow = () => {
     win.show();
   }
 };
+
+ipcMain.on("progress", (event, src) => {
+  if (!src) {
+    tray.setImage(nativeImage.createFromPath(path.join(assetsDirectory, "icons/png/icon-16.png")));
+  } else {
+    tray.setImage(nativeImage.createFromDataURL(src));
+  }
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
