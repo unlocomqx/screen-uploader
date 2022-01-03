@@ -1,11 +1,14 @@
-import { get } from "svelte/store";
-import { prefs } from "../stores/prefs";
-import { scaleFactor } from "../stores/scale-factor";
-import { ui } from "../stores/ui";
-import { downscale } from "./image";
-import { uploadScreenshot } from "./uploader";
+import { get } from "svelte/store"
+import { prefs } from "../stores/prefs"
+import { scaleFactor } from "../stores/scale-factor"
+import { ui } from "../stores/ui"
+import { downscale } from "./image"
+import { uploadScreenshot } from "./uploader"
 
 export function initClipboardWatcher () {
+  if (!window.clipboardWatcher) {
+    return () => {}
+  }
   const watcher = window.clipboardWatcher({
     // (optional) delay in ms between polls
     watchDelay: 1000,

@@ -2504,6 +2504,11 @@ matcher@^3.0.0:
   dependencies:
     escape-string-regexp "^4.0.0"
 
+material-icons@^1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/material-icons/-/material-icons-1.10.4.tgz#1916cb50d4eba221cf67d6ca912790ecdcd1f42b"
+  integrity sha512-WaDhx+10PRmNcVrhXRaoTkqPeOROpUDeQPPsn68+bEmv9SkCcvEt2kPg5UTV7T3oOZG/teMcJNKRLrkdWSWz+Q==
+
 memorystream@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/memorystream/-/memorystream-0.3.1.tgz#86d7090b30ce455d63fbae12dda51a47ddcaf9b2"

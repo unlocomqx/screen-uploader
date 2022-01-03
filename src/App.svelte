@@ -1,7 +1,10 @@
 <script lang="ts">
+  import "material-icons/iconfont/material-icons.css"
   import { onMount } from "svelte"
+  import ShortcutRecorder from "./components/ShortcutRecorder.svelte"
   import UploadBtn from "./components/UploadBtn.svelte"
   import { prefs } from "./stores/prefs"
+  import { srStore } from "./stores/sr"
   import { ui } from "./stores/ui"
   import { initClipboardWatcher } from "./tools/clipboard"
 
@@ -9,11 +12,12 @@
     const stop = initClipboardWatcher()
 
     if ($prefs.start_hidden) {
-      window.postMessage("hide");
+      window.postMessage("hide")
     }
 
     return stop
-  });
+  })
+
 </script>
 
 <div id="main_container">
@@ -27,6 +31,12 @@
         <div class="custom-control custom-checkbox">
           <input type="checkbox" bind:checked={$prefs.upload_auto} class="custom-control-input" id="upload_auto">
           <label class="custom-control-label" for="upload_auto">Auto upload images in clipboard</label>
+          <button class="btn btn-inline btn-shortcut"
+                  title="Record shortcut to toggle this setting"
+                  on:click={() => srStore.open("upload_auto_shortcut")}
+          >
+            <i class="material-icons">shortcut</i>
+          </button>
         </div>
         <div class="custom-control custom-checkbox">
           <input type="checkbox" bind:checked={$prefs.downscale} class="custom-control-input" id="downscale">
@@ -60,7 +70,12 @@
       {$ui.status}
     </div>
   {/if}
+
 </div>
+
+{#if $srStore.open && $srStore.context}
+  <ShortcutRecorder/>
+{/if}
 
 <style lang="scss">
   .upload_url_div {

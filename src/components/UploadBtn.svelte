@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { progress } from "../stores/progress";
-  import { ui } from "../stores/ui";
-  import { uploadScreenshot } from "../tools/uploader";
+  import { progress } from "../stores/progress"
+  import { srStore } from "../stores/sr"
+  import { ui } from "../stores/ui"
+  import { uploadScreenshot } from "../tools/uploader"
 
   async function uploadImage () {
     let image = window.clipboard.readImage();
@@ -61,8 +62,20 @@
     <button on:click={uploadImage} class="btn btn-primary">
       Upload current image
     </button>
+    <button class="btn btn-inline btn-shortcut shortcut-btn"
+            title="Record shortcut to toggle this setting"
+            on:click={() => srStore.open("upload_current_shortcut")}
+    >
+      <i class="material-icons">shortcut</i>
+    </button>
   </div>
   {#if $progress}
     <img id="spinner" src="assets/spinner.gif" height="36" alt="loading...">
   {/if}
 </div>
+
+<style>
+  .shortcut-btn {
+    vertical-align: middle;
+  }
+</style>

@@ -1,17 +1,19 @@
-import { writable } from "svelte-local-storage-store";
-import { get } from "svelte/store";
+import { writable } from "svelte-local-storage-store"
+import { get } from "svelte/store"
 
 export type Prefs = {
-  start_hidden: boolean,
-  upload_auto: boolean,
-  downscale: boolean,
-  copy_auto: boolean,
+  start_hidden: boolean
+  upload_auto: boolean
+  upload_auto_shortcut: string
+  downscale: boolean
+  copy_auto: boolean
   upload_url: string
 }
 
 export const store = writable<Prefs>("prefs", {
   start_hidden: false,
   upload_auto: true,
+  upload_auto_shortcut: "",
   downscale: false,
   copy_auto: true,
   upload_url: null
