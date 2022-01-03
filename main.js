@@ -61,7 +61,7 @@ async function createWindow() {
 }
 
 const toggleWindow = () => {
-  if (win.isVisible()) {
+  if (win.isFocused()) {
     win.hide();
   } else {
     win.show();
