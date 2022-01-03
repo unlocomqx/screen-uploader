@@ -15,7 +15,7 @@ const assetsDirectory = path.join(__dirname, "public/assets")
 
 let win
 let tray = null
-let dev_mode = true
+let dev_mode = false
 
 async function createWindow() {
 
