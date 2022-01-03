@@ -5,15 +5,14 @@ const {
   screen,
   ipcMain,
   nativeImage,
-  globalShortcut
+  globalShortcut,
 } = require("electron")
+const registerShortcuts = require("./main/shortcuts")
 const path = require("path")
 const url = require("url")
 
 const assetsDirectory = path.join(__dirname, "public/assets")
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray = null
 let dev_mode = true
@@ -24,7 +23,6 @@ async function createWindow() {
   tray.on("click", toggleWindow)
   tray.setToolTip("Screen Uploader")
 
-  // Create the browser window.
   const options = dev_mode ? {width: 850, height: 600} : {width: 300, height: 414}
   options.resizable = false
   options.webPreferences = {
@@ -32,6 +30,9 @@ async function createWindow() {
     preload: __dirname + "/src/preload.js"
   }
   win = new BrowserWindow(options)
+
+  registerShortcuts(win)
+
   win.setMenu(null)
 
   if (dev_mode) {
@@ -49,15 +50,10 @@ async function createWindow() {
   })
 
   if (dev_mode) {
-    // Open the DevTools.
     win.webContents.openDevTools()
   }
 
-  // Emitted when the window is closed.
   win.on("closed", () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     win = null
     tray.destroy()
   })
@@ -66,18 +62,6 @@ async function createWindow() {
   if (!dev_mode) {
     app.dock.hide()
   }
-
-  // // Register a 'CommandOrControl+X' shortcut listener.
-  // const ret = globalShortcut.register("CommandOrControl+X", () => {
-  //   console.log("CommandOrControl+X is pressed")
-  // })
-  //
-  // if (!ret) {
-  //   console.log("registration failed")
-  // }
-  //
-  // // Check whether a shortcut is registered.
-  // console.log(globalShortcut.isRegistered("CommandOrControl+X"))
 }
 
 const toggleWindow = () => {
@@ -98,31 +82,24 @@ ipcMain.on("progress", (event, src) => {
 
 ipcMain.on("hide", () => {
   win.hide()
-  // or depending you could do: win.hide()
 })
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+ipcMain.on("registerShortcuts", () => {
+  registerShortcuts(win)
+})
+
 app.on("ready", createWindow)
 
-// Quit when all windows are closed.
 app.on("window-all-closed", () => {
   app.quit()
 })
 
 app.on("activate", () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
   }
 })
 
 app.on("will-quit", () => {
-  // // Unregister a shortcut.
-  // globalShortcut.unregister("CommandOrControl+X")
-  //
-  // // Unregister all shortcuts.
-  // globalShortcut.unregisterAll()
+  globalShortcut.unregisterAll()
 })

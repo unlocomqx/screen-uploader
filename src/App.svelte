@@ -18,6 +18,19 @@
     return stop
   })
 
+  window.addEventListener("message", (event: MessageEvent<{ type: string, value: number }>) => {
+    if (event.data.type === "globalShortcut") {
+      switch (event.data.value) {
+        case "toggle_upload_auto":
+          $prefs.upload_auto = !$prefs.upload_auto
+          break
+        case "upload_current_image":
+          $prefs.upload_auto = !$prefs.upload_auto
+          break
+      }
+    }
+  })
+
 </script>
 
 <div id="main_container">

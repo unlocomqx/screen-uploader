@@ -9,7 +9,9 @@
     }
   }
 
-  let shortcut = $prefs.upload_auto_shortcut
+  $: context = $srStore.context
+  $: shortcut = $prefs[context]
+
   function recordShortcut (e: KeyboardEvent) {
     const meta = e.metaKey
     const ctrl = e.ctrlKey
@@ -17,7 +19,7 @@
     const shift = e.shiftKey
     const key = e.key
 
-    const ignoredKeys = ["Meta", "Control", "Shift","Alt"]
+    const ignoredKeys = ["Meta", "Control", "Shift", "Alt"]
 
     if (!key || ignoredKeys.includes(key)) {
       shortcut = ""
@@ -46,12 +48,12 @@
       shortcut += String.fromCharCode(e.keyCode)
     }
 
-    $prefs.upload_auto_shortcut = shortcut
-
+    $prefs[context] = shortcut
+    window.postMessage("registerShortcuts")
   }
 
   function clear () {
-    $prefs.upload_auto_shortcut = ""
+    $prefs[context] = ""
   }
 </script>
 
@@ -63,11 +65,12 @@
   </button>
 
   <div>
-    <label>Press a shortcut to record it</label>
+    <label for="shortcut">Press a shortcut to record it</label>
     <div class="input-group mb-3">
       <input type="text"
+             id="shortcut"
              class="form-control"
-             value={$prefs.upload_auto_shortcut}
+             value={$prefs[context] || ''}
              on:keydown={recordShortcut}
       >
       <div class="input-group-append">

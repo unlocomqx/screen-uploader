@@ -8,21 +8,23 @@ export type Prefs = {
   downscale: boolean
   copy_auto: boolean
   upload_url: string
+  upload_current_shortcut: string
 }
 
 export const store = writable<Prefs>("prefs", {
-  start_hidden: false,
-  upload_auto: true,
-  upload_auto_shortcut: "",
-  downscale: false,
-  copy_auto: true,
-  upload_url: null
-});
+  start_hidden           : false,
+  upload_auto            : true,
+  upload_auto_shortcut   : "",
+  downscale              : false,
+  copy_auto              : true,
+  upload_url             : null,
+  upload_current_shortcut: ""
+})
 
 export const prefs = {
   ...store,
-  getKey (key: keyof Prefs): any{
-    const data = get(store);
-    return data[key];
+  getKey (key: keyof Prefs): any {
+    const data = get(store)
+    return data[key]
   }
 }
