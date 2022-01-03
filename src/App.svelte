@@ -1,11 +1,19 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import UploadBtn from "./components/UploadBtn.svelte";
-  import { prefs } from "./stores/prefs";
-  import { ui } from "./stores/ui";
-  import { initClipboardWatcher } from "./tools/clipboard";
+  import { onMount } from "svelte"
+  import UploadBtn from "./components/UploadBtn.svelte"
+  import { prefs } from "./stores/prefs"
+  import { ui } from "./stores/ui"
+  import { initClipboardWatcher } from "./tools/clipboard"
 
-  onMount(initClipboardWatcher);
+  onMount(() => {
+    const stop = initClipboardWatcher()
+
+    if ($prefs.start_hidden) {
+      window.postMessage("hide");
+    }
+
+    return stop
+  });
 </script>
 
 <div id="main_container">

@@ -1,7 +1,6 @@
 const {app, BrowserWindow, Tray, screen, ipcMain, nativeImage} = require("electron");
 const path = require("path");
 const url = require("url");
-const settings = require("electron-settings");
 
 const assetsDirectory = path.join(__dirname, "public/assets");
 
@@ -9,7 +8,7 @@ const assetsDirectory = path.join(__dirname, "public/assets");
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let tray = null;
-let dev_mode = false;
+let dev_mode = true;
 
 async function createWindow() {
 
@@ -56,9 +55,6 @@ async function createWindow() {
   });
   win.on("minimize", () => win.hide());
 
-  if (await settings.get("start_hidden")) {
-    win.minimize();
-  }
   if (!dev_mode) {
     app.dock.hide();
   }
@@ -79,6 +75,11 @@ ipcMain.on("progress", (event, src) => {
     tray.setImage(nativeImage.createFromDataURL(src));
   }
 });
+
+ipcMain.on('hide', () => {
+  win.hide()
+  // or depending you could do: win.hide()
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

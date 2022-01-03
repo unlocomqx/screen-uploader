@@ -11,4 +11,7 @@ window.addEventListener('message', (event) => {
   if (event.data.type === "progress") {
     electron.ipcRenderer.send("progress", event.data.src);
   }
+  if (event.data === "hide") {
+    electron.ipcRenderer.send("hide");
+  }
 })
