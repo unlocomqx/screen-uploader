@@ -24,7 +24,7 @@
     "@rollup/plugin-typescript": "^8.0.0",
     "@tsconfig/svelte": "^2.0.0",
     "concurrently": "^6.2.1",
-    "electron": "^7.2.4",
+    "electron": "^15.5.5",
     "electron-builder": "^22.9.1",
     "electron-packager": "^15.2.0",
     "node-sass": "^6.0.1",
